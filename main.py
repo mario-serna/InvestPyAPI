@@ -10,6 +10,9 @@ parser.add_argument('list', type=str, help='Stocks ID')
 parser.add_argument('from_date', type=str, help='From date dd/MM/yyyy')
 parser.add_argument('to_date', type=str, help='To date dd/MM/yyyy')
 
+class Welcome(Resource):
+    def get(self):
+        return "Welcome to InvestPyAPI"
 
 class StockList(Resource):
     def get(self):
@@ -55,6 +58,7 @@ class Stock(Resource):
         return data.to_csv()
 
 
+api.add_resource(Welcome, '/')
 api.add_resource(StockList, '/stocks')
 api.add_resource(Stock, '/stocks/<string:id>')
 
