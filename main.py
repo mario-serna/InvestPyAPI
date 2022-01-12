@@ -7,12 +7,15 @@ api = Api(app)
 
 parser = reqparse.RequestParser()
 parser.add_argument('list', type=str, help='Stocks ID')
+parser.add_argument('columns', type=str, help='Columns to get')
 parser.add_argument('from_date', type=str, help='From date dd/MM/yyyy')
 parser.add_argument('to_date', type=str, help='To date dd/MM/yyyy')
+
 
 class Welcome(Resource):
     def get(self):
         return "Welcome to InvestPyAPI"
+
 
 class StockList(Resource):
     def get(self):
@@ -55,6 +58,9 @@ class Stock(Resource):
         print(search_result)
         data = search_result[0].retrieve_historical_data(
             from_date=args.from_date, to_date=args.to_date)
+
+        if args.columns:
+            data = data.loc[:, data.columns.isin(args.columns.split(","))]
         return data.to_csv()
 
 
