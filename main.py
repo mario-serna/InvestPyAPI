@@ -44,7 +44,7 @@ class StockList(Resource):
             return frames
 
         search_result = investpy.stocks.get_stocks(country="peru")
-        return search_result[search_result.currency == "PEN"].to_csv()
+        return search_result.to_csv()
 
 
 class Stock(Resource):
