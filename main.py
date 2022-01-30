@@ -58,6 +58,8 @@ class Stock(Resource):
         try:
             args = parser.parse_args()
             print(id)
+            if id == "CA89531J1093":
+                id = "CA89531J7868"
             print(args.from_date)
             search_result = investpy.search_quotes(
                 text=id, products=['stocks'], countries=['peru'], n_results=None)
